@@ -21,6 +21,7 @@ async def main(page: ft.Page):
 
     left_view = LeftRail()
     await page.add_async(left_view)
+    await left_view.dest_change()
     await page.update_async()
 
 
