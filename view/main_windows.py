@@ -22,7 +22,16 @@ class FastCaseWindows(QWidget):
         self.right_box = RightBoxWidget()
         self.layout.addWidget(self.right_box)
 
-        self.right_box.top_info.btn_close_app.clicked.connect(self.close)
+        self.right_box.btn_msg.clicked.connect(lambda: print('点击了 msg 按钮'))
+        self.right_box.btn_minimize_app.clicked.connect(self.showMinimized)
+        self.right_box.btn_maximize_app.clicked.connect(self.btn_maximized)
+        self.right_box.btn_close_app.clicked.connect(self.close)
+
+    def btn_maximized(self):
+        if self.isMaximized():
+            self.showNormal()
+        else:
+            self.showMaximized()
 
     def __init_set(self):
         self.resize(st.MAIN_WIDTH, st.MAIN_HEIGHT)

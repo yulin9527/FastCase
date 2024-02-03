@@ -19,11 +19,8 @@ class RightTopInfo(QFrame):
         self.btn_maximize_app = QPushButton()
         self.btn_close_app = QPushButton()
 
-        self.btn_connect()
-
         self.layout.addWidget(self.lab_des)
         self.layout.addStretch()
-        # self.layout.addChildWidget([self.btn_msg, self.btn_minimize_app, self.btn_maximize_app, self.btn_close_app])
         self.layout.addWidget(self.btn_msg)
         self.layout.addWidget(self.btn_minimize_app)
         self.layout.addWidget(self.btn_maximize_app)
@@ -32,7 +29,6 @@ class RightTopInfo(QFrame):
 
     #
     def btn_connect(self):
-
         pass
 
 
@@ -40,8 +36,32 @@ class RightBoxWidget(QFrame):
     def __init__(self):
         super().__init__()
         self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+        self.top_info = QFrame(self)
+        self.top_info.setMinimumHeight(40)
+        self.top_info.setMaximumHeight(40)
+        self.top_layout = QHBoxLayout(self.top_info)
+        self.top_layout.setContentsMargins(0, 0, 0, 0)
+        self.top_layout.setSpacing(0)
 
-        self.top_info = RightTopInfo()
+        self.lab_des = QLabel()
+        self.lab_des.setText(st.FAST_CASE_DESCRIPTION)
+
+        self.btn_msg = QPushButton()
+        self.btn_minimize_app = QPushButton()
+        self.btn_maximize_app = QPushButton()
+        self.btn_close_app = QPushButton()
+
+        self.top_layout.addWidget(self.lab_des)
+        self.top_layout.addStretch()
+        self.top_layout.addWidget(self.btn_msg)
+        self.top_layout.addWidget(self.btn_minimize_app)
+        self.top_layout.addWidget(self.btn_maximize_app)
+        self.top_layout.addWidget(self.btn_close_app)
+        # self.setLayout(self.layout)
+        #
+
         self.layout.addWidget(self.top_info)
         self.layout.addWidget(QFrame())
 
