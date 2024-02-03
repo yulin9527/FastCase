@@ -1,7 +1,9 @@
 import sys
 
+import qdarkstyle
 from PySide6.QtGui import QPalette
 from PySide6.QtWidgets import QApplication, QWidget, QToolBox, QVBoxLayout, QLabel, QPushButton
+from qdarkstyle import LightPalette
 from qt_material import apply_stylesheet
 
 
@@ -47,6 +49,7 @@ class MainWindow(QWidget):
 if __name__ == '__main__':
     app = QApplication()
     window = MainWindow()
-    apply_stylesheet(window, theme='dark_blue.xml')
+    # apply_stylesheet(window, theme='dark_blue.xml')
+    # app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyside6', palette=LightPalette))
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

@@ -1,4 +1,7 @@
+import qdarkstyle
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QComboBox, QWidget, QVBoxLayout, QCheckBox
+from PySide6.QtCore import QCoreApplication, QFile, QTextStream
+from qdarkstyle import LightPalette
 
 """
 最基础的框架
@@ -21,5 +24,6 @@ class MyWindow(QWidget):
 if __name__ == '__main__':
     app = QApplication([])
     window = MyWindow()
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyside6', palette=LightPalette))
     window.show()
     app.exec()

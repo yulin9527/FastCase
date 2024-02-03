@@ -1,17 +1,28 @@
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QApplication
 
-from core.lifespan import Lifespan
-from layout.layout_main import FastCaseWindowsLayout
+from view.main_windows import FastCaseWindows
 
 
-class FastCaseWindows(FastCaseWindowsLayout):
-    def __init__(self, ):
+class FastCaseApp(QApplication):
+    def __init__(self):
         super().__init__()
+        self.__init_set()
+
+        self.layout = FastCaseWindows()
+        self.layout.show()
+
+    def __init_set(self):
+        """
+        初始化app设置
+        :return:
+        """
+        self.setWindowIcon(QIcon('icon.ico'))
+        # self.setQuitOnLastWindowClosed(False)
+        self.setAttribute(Qt.AA_DontCreateNativeWidgetSiblings)
 
 
 if __name__ == '__main__':
-    with Lifespan() as loop:
-        app = QApplication([])
-        window = FastCaseWindows()
-        window.show()
-        app.exec()
+    app = FastCaseApp()
+    app.exec()
