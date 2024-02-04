@@ -1,49 +1,41 @@
 from PySide6.QtCore import QRect, QSize, Qt, QPropertyAnimation, QEasingCurve
 from PySide6.QtGui import QPalette, QColor, QPixmap
-from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QPushButton, QHBoxLayout
+from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QPushButton, QHBoxLayout, QStackedWidget
 
 import settings as st
+from view.functions import Functions
 
 
-class RightTopInfo(QFrame):
+class ContentBox(QFrame):
     def __init__(self):
         super().__init__()
+        self.layout = QStackedWidget(self)
 
-        self.layout = QHBoxLayout(self)
+        widget1 = QFrame()
+        widget1_layout = QHBoxLayout(widget1)
+        widget1_layout.addWidget(QPushButton('第一个页面'))
+        widget2 = QFrame()
+        widget2_layout = QHBoxLayout(widget2)
+        widget2_layout.addWidget(QPushButton('第二个页面'))
+        widget3 = QFrame()
+        widget3_layout = QHBoxLayout(widget3)
+        widget3_layout.addWidget(QPushButton('第三个页面'))
+        self.layout.addWidget(widget1)
+        self.layout.addWidget(widget2)
+        self.layout.addWidget(widget3)
 
-        self.lab_des = QLabel()
-        self.lab_des.setText(st.FAST_CASE_DESCRIPTION)
-
-        self.btn_msg = QPushButton()
-        self.btn_minimize_app = QPushButton()
-        self.btn_maximize_app = QPushButton()
-        self.btn_close_app = QPushButton()
-
-        self.layout.addWidget(self.lab_des)
-        self.layout.addStretch()
-        self.layout.addWidget(self.btn_msg)
-        self.layout.addWidget(self.btn_minimize_app)
-        self.layout.addWidget(self.btn_maximize_app)
-        self.layout.addWidget(self.btn_close_app)
-        self.setLayout(self.layout)
-
-    #
-    def btn_connect(self):
-        pass
+        self.layout.setCurrentIndex(2)
 
 
 class RightBoxWidget(QFrame):
     def __init__(self):
         super().__init__()
+
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(0)
+        Functions.set_widget_marg(obj=self.layout)
+
         self.top_info = QFrame(self)
-        self.top_info.setMinimumHeight(40)
-        self.top_info.setMaximumHeight(40)
         self.top_layout = QHBoxLayout(self.top_info)
-        self.top_layout.setContentsMargins(0, 0, 0, 0)
-        self.top_layout.setSpacing(0)
 
         self.lab_des = QLabel()
         self.lab_des.setText(st.FAST_CASE_DESCRIPTION)
@@ -52,6 +44,25 @@ class RightBoxWidget(QFrame):
         self.btn_minimize_app = QPushButton()
         self.btn_maximize_app = QPushButton()
         self.btn_close_app = QPushButton()
+
+        self.foot_info = QFrame(self)
+        self.foot_layout = QHBoxLayout(self.foot_info)
+
+        self.lab_credits = QLabel()
+        self.lab_credits.setText(st.CREDITS)
+
+        self.lab_version = QLabel()
+        self.lab_version.setText(st.VERSIONS)
+
+        self.top_box_layout()
+
+        self.layout.addWidget(ContentBox())
+
+        self.foot_box_layout()
+
+    def top_box_layout(self):
+        self.top_info.setFixedHeight(40)
+        Functions.set_widget_marg(obj=self.top_layout, left=15, right=15)
 
         self.top_layout.addWidget(self.lab_des)
         self.top_layout.addStretch()
@@ -59,71 +70,14 @@ class RightBoxWidget(QFrame):
         self.top_layout.addWidget(self.btn_minimize_app)
         self.top_layout.addWidget(self.btn_maximize_app)
         self.top_layout.addWidget(self.btn_close_app)
-        # self.setLayout(self.layout)
-        #
 
         self.layout.addWidget(self.top_info)
-        self.layout.addWidget(QFrame())
 
-    #     self.btn_hide.clicked.connect(self.btn_hide_clicked)
-    #
-    # def _set_top_logo(self):
-    #     self.top_logo_info.setMaximumHeight(self.logo_width)
-    #     self.top_logo_info.setMinimumHeight(self.logo_width)
-    #     logo = QLabel(self.top_logo_info)
-    #     show_size = self.logo_width - 10
-    #     logo.setGeometry(QRect(5, 5, show_size, show_size))
-    #     pixmap = QPixmap("78968273.jpeg").scaled(QSize(show_size, show_size), Qt.KeepAspectRatio,
-    #                                              Qt.SmoothTransformation)
-    #     logo.setPixmap(pixmap)
-    #
-    #     title_top = QLabel(self.top_logo_info)
-    #     title_top.setGeometry(QRect(self.logo_width, 0, self.max_width - self.logo_width, self.logo_width))
-    #     title_top.setText(st.FAST_CASE_NAME)
-    #     title_top.setAlignment(Qt.AlignLeading | Qt.AlignHCenter | Qt.AlignVCenter)
-    #
-    #     self.layout.addWidget(self.top_logo_info)
-    #
-    # def _set_left_menu(self):
-    #     self.left_menu_info.move(0, self.logo_width)
-    #     palette = self.left_menu_info.palette()
-    #     palette.setColor(QPalette.Window, QColor(215, 192, 203))
-    #     self.left_menu_info.setPalette(palette)
-    #     self.left_menu_info.setAutoFillBackground(True)
-    #
-    #     left_layout = QVBoxLayout()
-    #     left_layout.setContentsMargins(0, 0, 0, 0)
-    #     left_layout.setSpacing(0)
-    #
-    #     left_layout.addWidget(self.btn_hide)
-    #     left_layout.addWidget(self.btn_home)
-    #     left_layout.addStretch()
-    #     left_layout.addWidget(self.btn_settings)
-    #
-    #     self.left_menu_info.setLayout(left_layout)
-    #
-    #     self.layout.addWidget(self.left_menu_info)
-    #
-    # def __init_set(self):
-    #     self.setMaximumWidth(self.logo_width)
-    #     self.layout.setSpacing(0)
-    #     self.layout.setContentsMargins(0, 0, 0, 0)
-    #
-    #     palette = self.palette()
-    #     palette.setColor(QPalette.Window, QColor(255, 192, 203))
-    #     self.setPalette(palette)
-    #     self.setAutoFillBackground(True)
-    #
-    # def btn_hide_clicked(self):
-    #     width = self.width()
-    #     if width == self.max_width:
-    #         width_extended = self.logo_width
-    #     elif width == self.logo_width:
-    #         width_extended = self.max_width
-    #     else:
-    #         return
-    #     self.animation.setDuration(500)
-    #     self.animation.setStartValue(width)
-    #     self.animation.setEndValue(width_extended)
-    #     self.animation.setEasingCurve(QEasingCurve.InOutQuart)
-    #     self.animation.start()
+    def foot_box_layout(self):
+        self.foot_info.setFixedHeight(30)
+        Functions.set_widget_marg(obj=self.foot_layout, left=15, right=15)
+
+        self.foot_layout.addWidget(self.lab_credits)
+        self.foot_layout.addStretch()
+        self.foot_layout.addWidget(self.lab_version)
+        self.layout.addWidget(self.foot_info)

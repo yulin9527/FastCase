@@ -9,7 +9,7 @@ class LeftMenuWidget(QFrame):
 
     def __init__(self):
         super().__init__()
-        self.max_width = 160
+        self.max_width = 140
         self.logo_width = 60
         self.layout = QVBoxLayout(self)
         self.__init_set()
